@@ -4,6 +4,8 @@ import React, { useEffect,useState ,useCallback} from "react";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import style from './login.module.scss'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useSelector, useDispatch } from "react-redux";
 import { requestUsers } from "../../redux/actions";
 import { getUserList } from '../../redux/actions';
@@ -26,6 +28,7 @@ const SignupSchema = Yup.object().shape({
 
 const Login =  ({getUserList, userData}) => { 
     const [list,setList] = useState([])
+
     const { loginData, isLoading } = useSelector((state) => state);
     const dispatch = useDispatch();
     let history = useHistory();
@@ -55,12 +58,12 @@ const Login =  ({getUserList, userData}) => {
     }
 
     if(loginData[0].username == formData.username && loginData[0].password == formData.password ){
-        console.log("successsss")
-        history.push(`/userlist`);
+        toast.success("Login Successs")
         localStorage.setItem('UserList', JSON.stringify(list.results))
+        history.push(`/userlist`);
 
     }else{
-        console.log("fail")
+        toast.error("Invalid username or password");
     }
 
 
@@ -95,6 +98,11 @@ const Login =  ({getUserList, userData}) => {
                     </Col>
                     <Col lg={12}>
                     <button type="submit" className="btn1" >Submit</button>
+
+
+                    <ToastContainer />
+
+                 
 
                     </Col>
                     </Row>

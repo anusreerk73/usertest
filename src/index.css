@@ -49,7 +49,14 @@ code {
   font-size: 14px;
   color: #076d3c;
 }
-
+.success{
+  background-color: #116e41;
+  color: #ffffff
+}
+.fail{
+  background-color: #ca1e18;
+  color : #ffffff;
+}
 .spacer20{
   height:20px
 }
