@@ -1,13 +1,16 @@
 
 
-import React, { useEffect } from "react";
+import React, { useEffect,useState ,useCallback} from "react";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import style from './login.module.scss'
 import { useSelector, useDispatch } from "react-redux";
 import { requestUsers } from "../../redux/actions";
+import { getUserList } from '../../redux/actions';
 import data from "../../datas/login.json";
 import { useHistory } from "react-router-dom";
+import {connect} from 'react-redux';
+
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
@@ -21,16 +24,28 @@ const SignupSchema = Yup.object().shape({
 });
 
 
-const Login = () => {
-
+const Login =  ({getUserList, userData}) => { 
+    const [list,setList] = useState([])
     const { loginData, isLoading } = useSelector((state) => state);
     const dispatch = useDispatch();
     let history = useHistory();
 
+    const fetchcallback = useCallback(()=>{
+        getUserList(data)
+    },[getUserList])
   
     useEffect(() => {
       dispatch(requestUsers(data));
     }, []);
+
+    useEffect(()=>{
+        fetchcallback()
+    },[fetchcallback])
+
+    useEffect(()=>{
+        setList(userData)
+    },[userData])
+
 
 
   const onSubmit = values => {
@@ -42,19 +57,16 @@ const Login = () => {
     if(loginData[0].username == formData.username && loginData[0].password == formData.password ){
         console.log("successsss")
         history.push(`/userlist`);
+        localStorage.setItem('UserList', JSON.stringify(list.results))
+
     }else{
         console.log("fail")
     }
 
-  localStorage.setItem('data', JSON.stringify(formData))
 
 }
 
-
-
-
     return (
-        
         <div className={style.loginWrap}>
         <Row>
         <Col className="col-lg-12 text-center">
@@ -94,11 +106,12 @@ const Login = () => {
                 </Col>
             </Row>
         </div>
-
-
-
        );
 }
 
- export default Login;
+
+const mapStateToProps = (state) => {
+    return { userData: state.userData }
+    }
+    export default connect(mapStateToProps,{getUserList})(Login);
 

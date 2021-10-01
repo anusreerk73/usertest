@@ -35,10 +35,19 @@ code {
 .errMsg{
   color: rgb(194, 41, 41);
 }
+.test{
+  color: #076d3c;
+  padding-left: 10px;
+}
 .title{
   color: #10ff8d;
   margin-top: 10%;
   margin-bottom: 9%;
+}
+
+.location{
+  font-size: 14px;
+  color: #076d3c;
 }
 
 .spacer20{
