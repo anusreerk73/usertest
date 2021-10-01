@@ -4,51 +4,75 @@ import Col from 'react-bootstrap/Col'
 import style from './list.module.scss'
 import Card from 'react-bootstrap/Card'
 import { useHistory } from "react-router-dom";
-import {connect} from 'react-redux';
 
 
 
 const UserList =  () => { 
     const [list,setList] = useState([])
+
     
     let history = useHistory();
 
 
 
     useEffect(()=>{
-
-        var userData = localStorage.getItem('UserList')
-        var userList = JSON.parse(userData)
-
-        console.log("userDatauserData" , userList)
+        let userData = localStorage.getItem('UserList')
+        let userList = JSON.parse(userData)
         setList(userList)
        
     },[])
 
+    
+
+    const setSearch = (e) => {
+        console.log("111111111111" ,list)
+
+        
 
 
-  const onSubmit = values => {
-   
+
+        var searchString = e;
+        var data = list.filter((account) => 
+        
+        { return account.user.username == searchString })
+        
+        let userData = localStorage.getItem('UserList')
+        let userList = JSON.parse(userData)
+        if(e == '' || null){
+            setList(userList)
+        }else{
+            setList(data)
+        }
+    }
+
+
+  const adduser = () => {
+    history.push(`/addform`);
+
 
 }
 
     return (
 
         <div className={style.listWrap}>
-
-            <Row className="">
-                <Col lg={9}></Col>
-                <Col lg={3}>
-                    <button className="btn1">Add New</button>
-                </Col>
-            </Row>
-        {list.map((user)=>{
-                    return (
-                        <div>
                         <div className="spacer50"></div>
                         <Row className="container-fluid">
                         <Col lg={2}></Col>
                         <Col lg={8}>
+
+
+                        <Row className="pt-5 pb-5">
+                            <Col lg={6}>
+                                <input type="text" className="search" onChange={(e) => setSearch(e.target.value)} />
+                            </Col>
+                        
+                            <Col lg={6} className="text-end">
+                                <button className="btn2"  onClick={() => adduser()}>Add New</button>
+                            </Col>
+                        </Row>
+
+                        {list.map((user)=>{
+                    return (
                         
                         <Card className={style.listcard}>
                         <Card.Body>
@@ -80,13 +104,13 @@ const UserList =  () => {
                         </Row>
                         </Card.Body>
                         </Card>
+                       
+                       
+                       ) })}
+                       
                         </Col>
                         <Col lg={2}></Col>
-                        </Row>
-                    </div>
-
-
-                    ) })}
+                        </Row>   
         </div>
         )
     }

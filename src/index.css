@@ -32,6 +32,23 @@ code {
   margin-top: 45px;
 
 }
+
+.btn2{
+  height: 45px;
+  width: 100px;
+  border: 1px solid #10ff8d;
+  background-color: #242424;
+  color: #10ff8d;
+}
+.search{
+    height: 45px;
+    width: 100%;
+    border: 1px solid #10ff8d;
+    background-color: #242424;
+    color: #10ff8d;
+    border-radius: 22px;
+    outline: none;
+}
 .errMsg{
   color: rgb(194, 41, 41);
 }
@@ -48,6 +65,17 @@ code {
 .location{
   font-size: 14px;
   color: #076d3c;
+}
+.radio {
+  font-size: 2.25rem !important;
+  color: #10ff8d !important;
+}
+.label1{
+  color: gray !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    display: inline-block;
+
 }
 .success{
   background-color: #116e41;

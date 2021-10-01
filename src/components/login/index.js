@@ -97,7 +97,7 @@ const Login =  ({getUserList, userData}) => {
                     {errors.password && touched.password ? <div className="errMsg">{errors.password}</div> : null}
                     </Col>
                     <Col lg={12}>
-                    <button type="submit" className="btn1" >Submit</button>
+                    <button type="submit" className="btn1" >Login</button>
 
 
                     <ToastContainer />
